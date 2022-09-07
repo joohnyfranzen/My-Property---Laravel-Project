@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Api\ApiMessages;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -31,16 +32,23 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        try{
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+            $user = $this->user->findOrFail($id);
+
+            return response()->json([
+                'data' => [
+                    'msg' => $user
+                ]
+            ], 200);
+
+        } catch (\Exception $e) {
+            $message = new ApiMessages($e->getMessage());
+            return response()->json([$message->getMessage(), 401]);
+        }
+
+    }
+    
     public function update(Request $request, $id)
     {
         //
