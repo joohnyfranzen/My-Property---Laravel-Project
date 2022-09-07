@@ -13,13 +13,14 @@ use App\Http\Controllers\Api\RealStateController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('v1')->namespace('Api')->group(function(){
+Route::prefix('v1')->group(function(){
+
     Route::prefix('real-states')->name('real_states')->group(function(){
-        Route::get('/', [RealStateController::class, 'index'])->name('index');
+//        Route::get('/', function(){return RealStateController::class;});
+        Route::resource('/', RealStateController::class);
     });
 });
