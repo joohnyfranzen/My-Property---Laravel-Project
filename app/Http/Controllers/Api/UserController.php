@@ -59,15 +59,24 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+
+        try{
+
+            $user = $this->user->findOrFail($id);
+            $user->update($data);
+            return response()->json([
+                'data' => [
+                    'msg' => 'User atualized !!!'
+                ]
+            ], 200);
+
+        } catch (\Exception $e) {
+            $message = new ApiMessages($e->getMessage());
+            return response()->json([$message->getMessage(), 401]);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
