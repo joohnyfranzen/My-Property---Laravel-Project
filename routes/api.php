@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RealStateController;
+use App\Http\Controllers\Api\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,5 +23,10 @@ Route::prefix('v1')->group(function(){
     Route::name('real_states')->group(function(){
 //        Route::get('/', function(){return RealStateController::class;});
         Route::resource('real-states', RealStateController::class);
+    });
+
+    Route::name('users')->group(function(){
+//        Route::get('/', function(){return RealStateController::class;});
+        Route::resource('users', UserController::class);
     });
 });
