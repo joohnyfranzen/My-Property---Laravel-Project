@@ -13,17 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('real_state_photos', function (Blueprint $table) {
-            $table->id();
+        Schema::create('real_state_categories', function (Blueprint $table) {
 
             $table->unsignedBigInteger('real_state_id');
-
-            $table->string('photo');
-            $table->boolean('is_thumb');
-
-            $table->timestamps();
+            $table->unsignedBigInteger('category_id');
 
             $table->foreign('real_state_id')->references('id')->on('real_state');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('real_state_photos');
+        Schema::dropIfExists('real_state_categories');
     }
 };
