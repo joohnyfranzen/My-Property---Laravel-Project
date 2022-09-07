@@ -57,4 +57,22 @@ class RealStateController extends Controller
             return response()->json(['error' => $e->getMessage()]);
         }
     }
+
+    public function destroy($id)
+    {
+
+        try{
+
+            $realState = $this->realState->findOrFail($id);
+            $realState->delete();
+            return response()->json([
+                'data' => [
+                    'msg' => 'Property removed !!!'
+                ]
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+    }
 }
