@@ -21,15 +21,23 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        try{
+
+            $user = $this->user->create($data);
+            return response()->json([
+                'data' => [
+                    'msg' => 'User registered !!!'
+                ]
+            ], 200);
+
+        } catch (\Exception $e) {
+            $message = new ApiMessages($e->getMessage());
+            return response()->json([$message->getMessage(), 401]);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         try{
@@ -48,7 +56,7 @@ class UserController extends Controller
         }
 
     }
-    
+
     public function update(Request $request, $id)
     {
         //
