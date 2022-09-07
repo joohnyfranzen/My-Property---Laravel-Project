@@ -30,13 +30,31 @@ class RealStateController extends Controller
             $realState = $this->realState->create($data);
             return response()->json([
                 'data' => [
-                    'msg' => 'Imóvel cadastrado !!!'
+                    'msg' => 'Property registered !!!'
                 ]
             ], 200);
 
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()]);
         }
+    }
 
+    public function update($id, Resquest $request)
+    {
+        $data = $request->all();
+
+        try{
+
+            $realState = $this->realState->findOrFail($id);
+            $realState->update($data);
+            return response()->json([
+                'data' => [
+                    'msg' => 'Property atualized !!!'
+                ]
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
     }
 }
