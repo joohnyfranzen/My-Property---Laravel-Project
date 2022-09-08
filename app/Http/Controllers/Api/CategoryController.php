@@ -15,15 +15,11 @@ class CategoryController extends Controller
 
     public function index()
     {
-        //
-    }
+        $categories = $this->categories->paginate('10');
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+        return response()->json($categories, 200);
+    }
+    
     public function store(Request $request)
     {
         //
