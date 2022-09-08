@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Api\ApiMessages;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -20,12 +21,18 @@ class UserController extends Controller
         return response()->json($users, 200);
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $data = $request->all();
 
+        if(!$request->has('password') || !$request->get('password')){
+            $message = new ApiMessages('Password needed to continue...');
+            return response()->json([$message->getMessage(), 401]);
+        }
+
         try{
 
+            $data['password'] = bcrypt($data['password']);
             $user = $this->user->create($data);
             return response()->json([
                 'data' => [
@@ -58,9 +65,15 @@ class UserController extends Controller
 
     }
 
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $data = $request->all();
+
+        if($request->has('password') || $request->get('password')){
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            unset($data['password']);
+        }
 
         try{
 
