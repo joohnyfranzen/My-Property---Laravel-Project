@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Api\ApiMessages;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -15,11 +16,11 @@ class CategoryController extends Controller
 
     public function index()
     {
-        $categories = $this->categories->paginate('10');
+        $categories = $this->category->paginate('10');
 
         return response()->json($categories, 200);
     }
-    
+
     public function store(Request $request)
     {
         //
@@ -33,16 +34,22 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        try{
+
+            $category = $this->category->findOrFail($id);
+
+            return response()->json([
+                'data' => [
+                    'msg' => $category
+                ]
+            ], 200);
+
+        } catch (\Exception $e) {
+            $message = new ApiMessages($e->getMessage());
+            return response()->json([$message->getMessage(), 401]);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
