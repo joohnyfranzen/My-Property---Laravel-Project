@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Api\ApiMessages;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -21,17 +21,26 @@ class CategoryController extends Controller
         return response()->json($categories, 200);
     }
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $data = $request->all();
+
+        try{
+
+
+            $category = $this->category->create($data);
+            return response()->json([
+                'data' => [
+                    'msg' => 'Category registered !!!'
+                ]
+            ], 200);
+
+        } catch (\Exception $e) {
+            $message = new ApiMessages($e->getMessage());
+            return response()->json([$message->getMessage(), 401]);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         try{
@@ -50,7 +59,7 @@ class CategoryController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         //
     }
