@@ -22,9 +22,9 @@ class RealStatePhotoController extends Controller
         try {
             $photo = $this->realStatePhoto
                 ->where('real_state_id', $realStateId)
-                ->where('is_thumb', true)->first();
+                ->where('is_thumb', true);
 
-            if($photo->count()) $photo->update(['is_thumb', false]);
+            if($photo->count()) $photo->first()->update(['is_thumb', false]);
 
             $photo = $this->realStatePhoto->find($photoId);
             $photo->update(['is_thumb' => true]);
