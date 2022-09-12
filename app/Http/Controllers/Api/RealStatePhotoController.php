@@ -6,6 +6,7 @@ use App\Api\ApiMessages;
 use App\Http\Controllers\Controller;
 use App\Models\RealStatePhoto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class RealStatePhotoController extends Controller
 {
@@ -43,6 +44,24 @@ class RealStatePhotoController extends Controller
 
     public function remove($photoId)
     {
+        try {
+            $photo = $this->realStatePhoto->find($photoId);
 
+            if($photo)
+            {
+                Storage::disk('public')->delete($photo->photo);
+                $photo->delete();
+            }
+            return response()->json([
+                'data' => [
+                    'msg' => 'Photo removed !!!'
+                ]
+            ], 200);
+
+
+        } catch (\Exception $e) {
+            $message = new ApiMessages($e->getMessage());
+            return response()->json([$message->getMessage(), 401]);
+        }
     }
 }
