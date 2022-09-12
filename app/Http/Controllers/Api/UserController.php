@@ -33,7 +33,7 @@ class UserController extends Controller
         Validator::make($data, [
             'mobile_phone' => 'required',
             'phone' => 'required',
-        ]);
+        ])->validate();
         try{
 
             $data['password'] = bcrypt($data['password']);
@@ -88,7 +88,7 @@ class UserController extends Controller
         Validator::make($data, [
             'profile.mobile_phone' => 'required',
             'profile.phone' => 'required',
-        ]);
+        ])->validate();
 
         try{
             $profile = $data['profile'];
