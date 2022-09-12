@@ -47,6 +47,11 @@ class RealStatePhotoController extends Controller
         try {
             $photo = $this->realStatePhoto->find($photoId);
 
+            if($photo->is_thumb)
+            {
+                $message = new ApiMessages('Cannot remove thumb photo');
+                return response()->json([$message->getMessage(), 401]);
+            }
             if($photo)
             {
                 Storage::disk('public')->delete($photo->photo);
