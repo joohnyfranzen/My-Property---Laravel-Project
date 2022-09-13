@@ -49,7 +49,7 @@ class RealStateController extends Controller
 
 
         try{
-            $data['user_id'] = auth('api')->user()-id;
+            $data['user_id'] = auth('api')->user()->id;
             $realState = $this->realState->create($data);
 
             if(isset($data['categories']) && count($data['categories']))
