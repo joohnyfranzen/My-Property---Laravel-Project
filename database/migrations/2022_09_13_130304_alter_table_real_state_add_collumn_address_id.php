@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('real_state', function (Blueprint $table) {
-            $table->unsignedBigInteger('adress_id')->nullable();
+            $table->unsignedBigInteger('addresses_id')->nullable();
 
-            $table->foreign('adress_id')->references('id')->on('addresses');
+            $table->foreign('addresses_id')->references('id')->on('addresses');
         });
     }
 
@@ -28,9 +28,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table('real_state', function (Blueprint $table) {
-            $table->dropForeign('real_state_adress_id_foreign');
+            $table->dropForeign('real_state_addresses_id_foreign');
 
-            $table->dropColumn('adress_id');
+            $table->dropColumn('addresses_id');
         });
     }
 };
