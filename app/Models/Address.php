@@ -9,6 +9,8 @@ class Address extends Model
 {
     use HasFactory;
 
+    protected $table ='addresses';
+
     public function state()
     {
         return $this->belongsTo(State::class);
@@ -19,4 +21,8 @@ class Address extends Model
         return $this->hasMany(City::class);
     }
 
+    public function real_state()
+    {
+        return $this->hasOne(RealState::class);
+    }
 }
