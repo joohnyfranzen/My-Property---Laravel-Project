@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function(){
 
+    Route::post('users', [UserController::class, 'store'])->name('users');
     Route::post('login', [LoginJwtController::class, 'login'])->name('login');
     Route::get('logout', [LoginJwtController::class, 'logout'])->name('logout');
     Route::get('refresh', [LoginJwtController::class, 'refresh'])->name('refresh');
@@ -33,13 +34,13 @@ Route::prefix('v1')->group(function(){
 
 
     Route::group(['middleware' => ['jwt.auth']], function() {
-
+        
         Route::name('real_states')->group(function(){
             Route::resource('real-states', RealStateController::class);
         });
-
+        
         Route::name('users')->group(function(){
-            Route::resource('users', UserController::class);
+            Route::resource('users', UserController::class)->except(['store']);
         });
 
         Route::name('categories')->group(function(){
