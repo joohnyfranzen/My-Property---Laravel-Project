@@ -15,7 +15,8 @@ class RealStateRepository extends AbstractRepository
     public function getResult()
     {
         $location = $this->location;
-        return $this->model->whereHas('address', function($q) use($location)
+        // Temporary fix on RealStateRepository
+        return $this->model->orWhereHas('address', function($q) use($location)
         {
             $q->where('state_id', $location['state'])
                 ->where('city_id', $location['city']);
