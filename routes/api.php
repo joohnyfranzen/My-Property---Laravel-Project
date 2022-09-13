@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\RealStateController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\Auth\LoginJwtController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,24 +23,32 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function(){
 
-    Route::name('real_states')->group(function(){
-        Route::resource('real-states', RealStateController::class);
-    });
+    Route::post('login', [LoginJwtController::class, 'login'])->name('login');
+    Route::get('logout', [LoginJwtController::class, 'logout'])->name('logout');
+    Route::get('refresh', [LoginJwtController::class, 'refresh'])->name('refresh');
 
-    Route::name('users')->group(function(){
-        Route::resource('users', UserController::class);
-    });
 
-    Route::name('categories')->group(function(){
+    Route::group(['middleware' => ['jwt.auth']], function() {
 
-        Route::get('categories/{id}/real-states', [CategoryController::class, 'realStates']);
+        Route::name('real_states')->group(function(){
+            Route::resource('real-states', RealStateController::class);
+        });
 
-        Route::resource('categories', CategoryController::class);
-    });
+        Route::name('users')->group(function(){
+            Route::resource('users', UserController::class);
+        });
 
-    Route::name('photos')->prefix('photos')->group(function(){
-        Route::delete('/{id}', [\App\Http\Controllers\Api\RealStatePhotoController::class, 'remove'])->name('delete');
-        Route::put('/set-thumb/{photoId}/{realStateId}', [\App\Http\Controllers\Api\RealStatePhotoController::class, 'setThumb'])->name('update');
+        Route::name('categories')->group(function(){
+
+            Route::get('categories/{id}/real-states', [CategoryController::class, 'realStates']);
+
+            Route::resource('categories', CategoryController::class);
+        });
+
+        Route::name('photos')->prefix('photos')->group(function(){
+            Route::delete('/{id}', [\App\Http\Controllers\Api\RealStatePhotoController::class, 'remove'])->name('delete');
+            Route::put('/set-thumb/{photoId}/{realStateId}', [\App\Http\Controllers\Api\RealStatePhotoController::class, 'setThumb'])->name('update');
+        });
     });
 
 });
