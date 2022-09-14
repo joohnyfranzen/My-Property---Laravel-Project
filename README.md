@@ -71,7 +71,7 @@
 - Real State - Add Collumn Address Id
 1. adresses_id - foreign -
 
-### Rotas:
+### Routes:
 ```
 - _/api/v1
 
