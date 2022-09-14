@@ -12,7 +12,10 @@ Developed in laravel the project consists of developing an api in Laravel
 
 ### How to inicializate it
 
-- In the terminal type ' git clone https://github.com/joohnyfranzen/My_Property-Laravel_Project '
+1. In the terminal type ```git clone https://github.com/joohnyfranzen/My_Property-Laravel_Project```
+2. Type the command "composer install". It will install all necessary php packages.
+3. After installing the dependencies you change example.env to .env
+4. Finally with the command ```php artisan serve``` run the project
 
 ### Database:
 
