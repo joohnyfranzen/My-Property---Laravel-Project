@@ -21,7 +21,7 @@ Developed in laravel the project consists of developing an api in Laravel
 
 1. Seeing the need to understand the architecture of the laravel framework, I tried to study it, starting with courses on Youtube and then acquiring a course from udemy.
 
-2.In the project in question, I was able to learn several tools that I had used before with Node, but I realized that the Laravel framework has the aptitude and solidity to meet different demands in a practical and fast way, since inside it there is already a whole package of utilities.
+2. In the project in question, I was able to learn several tools that I had used before with Node, but I realized that the Laravel framework has the aptitude and solidity to meet different demands in a practical and fast way, since inside it there is already a whole package of utilities.
 
 ### Database:
 
