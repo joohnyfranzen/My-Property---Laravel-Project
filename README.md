@@ -4,11 +4,15 @@
 
 Developed in laravel the project consists of developing an api in Laravel
 
-# Application testing requirements
+### Application testing requirements
 
-Laravel 9
-Php 8
-Project Clone
+- Laravel 9
+- Php 8
+- Project Clone
+
+### How to inicializate it
+
+- In the terminal type ' git clone https://github.com/joohnyfranzen/My_Property-Laravel_Project '
 
 ### Database:
 
