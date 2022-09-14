@@ -2,6 +2,14 @@
 
 # Project developed in the course of api laravel by Udemy
 
+Developed in laravel the project consists of developing an api in Laravel
+
+# Application testing requirements
+
+Laravel 9
+Php 8
+Project Clone
+
 ### Database:
 
 - Users - Foreign - ( ( 'user_id' on 'real_state ) ( 'user_id' on 'user_profile' ))
